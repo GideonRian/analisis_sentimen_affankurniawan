@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendeteksi Sentimen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel_body="preconnect" href="https://fonts.googleapis.com">
+    <link rel_body="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Pendeteksian Sentimen</h1>
+            <p>Dashboard Sentimen Opini Publik terhadap Affan Kurniawan</p>
+        </div>
+
+        <div class="analyzer-box">
+            <textarea id="comment-input" placeholder="Tuliskan komentar di sini..."></textarea>
+            <button id="analyze-button">Analisis Sentimen</button>
+        </div>
+
+        <div id="results-container" style="display: none;">
+            <h3>Hasil Analisis:</h3>
+            <div id="result-box">
+                <span id="sentiment-label">Sentimen:</span>
+                <span id="sentiment-value"></span>
+                <div class="confidence">
+                    <span>Keyakinan:</span>
+                    <span id="confidence-value"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('analyze-button').addEventListener('click', function() {
+            const commentText = document.getElementById('comment-input').value;
+            const button = this;
+            const resultsContainer = document.getElementById('results-container');
+            const resultBox = document.getElementById('result-box');
+            const sentimentValue = document.getElementById('sentiment-value');
+            const confidenceValue = document.getElementById('confidence-value');
+
+            button.disabled = true;
+            button.textContent = 'Menganalisis...';
+            resultsContainer.style.display = 'none';
+            resultBox.classList.remove('positive', 'negative');
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ comment: commentText }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    sentimentValue.textContent = `Error: ${data.error}`;
+                    resultBox.classList.add('negative');
+                } else {
+                    sentimentValue.textContent = data.sentiment;
+                    confidenceValue.textContent = data.confidence;
+                    if (data.sentiment === 'Positif') {
+                        resultBox.classList.add('positive');
+                    } else {
+                        resultBox.classList.add('negative');
+                    }
+                }
+                resultsContainer.style.display = 'block';
+                button.disabled = false;
+                button.textContent = 'Analisis Sentimen';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                sentimentValue.textContent = 'Error: Tidak dapat terhubung ke server.';
+                resultBox.classList.add('negative');
+                resultsContainer.style.display = 'block';
+                button.disabled = false;
+                button.textContent = 'Analisis Sentimen';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212; 
+    color: #e0e0e0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #1e1e1e; 
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 30px 40px;
+    border: 1px solid #333;
+}
+
+.header {
+    text-align: center;
+    border-bottom: 2px solid #007bff; 
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #ffffff;
+    margin: 0;
+    font-weight: 700;
+}
+
+.header p {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    margin-top: 5px;
+}
+
+.analyzer-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+textarea {
+    font-family: 'Poppins', sans-serif;
+    min-height: 120px;
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #252525;
+    color: #e0e0e0;
+    resize: vertical; 
+    box-sizing: border-box; 
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Penataan Hasil */
+#results-container {
+    margin-top: 30px;
+}
+
+#results-container h3 {
+    color: #fff;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+#result-box {
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#sentiment-label {
+    font-weight: 600;
+    color: #aaa;
+}
+
+#sentiment-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.confidence {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+.positive {
+    background-color: rgba(40, 167, 69, 0.15);
+    border-color: #28a745;
+}
+.positive #sentiment-value {
+    color: #28a745;
+}
+
+.negative {
+    background-color: rgba(220, 53, 69, 0.15); 
+    border-color: #dc3545;
+}
+.negative #sentiment-value {
+    color: #dc3545;
+}
